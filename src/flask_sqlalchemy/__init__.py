@@ -138,7 +138,7 @@ class SignallingSession(SessionBase):
             autoflush=autoflush,
             bind=bind,
             binds=binds,
-            **options,
+            **options
         )
 
     def get_bind(self, mapper=None, clause=None):
