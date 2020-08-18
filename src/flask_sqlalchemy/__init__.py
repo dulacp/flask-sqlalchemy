@@ -7,7 +7,13 @@ import warnings
 from math import ceil
 from operator import itemgetter
 from threading import Lock
-from time import perf_counter
+
+try:
+    # Python >= 3.3
+    from time import perf_counter
+except ImportError:
+    # Python < 3.3
+    from backports.time_perf_counter import perf_counter
 
 import sqlalchemy
 from flask import _app_ctx_stack
