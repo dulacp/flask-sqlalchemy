@@ -1,3 +1,5 @@
+# -*- coding: future_fstrings -*-
+
 import functools
 import os
 import sys

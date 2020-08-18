@@ -1,3 +1,5 @@
+# -*- coding: future_fstrings -*-
+
 from datetime import datetime
 
 from flask import flash
