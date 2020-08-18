@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import pytest
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.ext.declarative import declarative_base

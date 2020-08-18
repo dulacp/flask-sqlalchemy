@@ -64,7 +64,7 @@ class NameMetaMixin(type):
         if should_set_tablename(cls):
             cls.__tablename__ = camel_to_snake_case(cls.__name__)
 
-        super().__init__(name, bases, d)
+        super(NameMetaMixin, cls).__init__(name, bases, d)
 
         # __table_cls__ has run at this point
         # if no table was created, use the parent table
@@ -114,7 +114,7 @@ class BindMetaMixin(type):
     def __init__(cls, name, bases, d):
         bind_key = d.pop("__bind_key__", None) or getattr(cls, "__bind_key__", None)
 
-        super().__init__(name, bases, d)
+        super(BindMetaMixin, cls).__init__(name, bases, d)
 
         if bind_key is not None and getattr(cls, "__table__", None) is not None:
             cls.__table__.info["bind_key"] = bind_key
@@ -124,7 +124,7 @@ class DefaultMeta(NameMetaMixin, BindMetaMixin, DeclarativeMeta):
     pass
 
 
-class Model:
+class Model(object):
     """Base class for SQLAlchemy declarative base model.
 
     To define models, subclass :attr:`db.Model <SQLAlchemy.Model>`, not this
