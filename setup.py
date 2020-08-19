@@ -10,5 +10,10 @@ with io.open("src/flask_sqlalchemy/__init__.py", encoding="utf8") as f:
 setup(
     name="Flask-SQLAlchemy",
     version=version,
-    install_requires=["Flask>=1.0.4", "future_fstrings>=1.2", "SQLAlchemy>=1.2"],
+    install_requires=[
+        "backports.time_perf_counter==0.0.4",
+        "Flask>=1.0.4",
+        "future_fstrings>=1.2",
+        "SQLAlchemy>=1.2",
+    ]
 )

@@ -1,4 +1,3 @@
 pytest
 blinker
 mock
-backports.time_perf_counter
