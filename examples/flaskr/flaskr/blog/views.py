@@ -1,3 +1,5 @@
+# -*- coding: future_fstrings -*-
+
 from flask import Blueprint
 from flask import flash
 from flask import g

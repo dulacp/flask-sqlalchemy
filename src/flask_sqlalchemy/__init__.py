@@ -1,3 +1,5 @@
+# -*- coding: future_fstrings -*-
+
 import functools
 import os
 import sys
@@ -5,7 +7,13 @@ import warnings
 from math import ceil
 from operator import itemgetter
 from threading import Lock
-from time import perf_counter
+
+try:
+    # Python >= 3.3
+    from time import perf_counter
+except ImportError:
+    # Python < 3.3
+    from backports.time_perf_counter import perf_counter
 
 import sqlalchemy
 from flask import _app_ctx_stack
@@ -136,7 +144,7 @@ class SignallingSession(SessionBase):
             autoflush=autoflush,
             bind=bind,
             binds=binds,
-            **options,
+            **options
         )
 
     def get_bind(self, mapper=None, clause=None):
@@ -518,7 +526,7 @@ class BaseQuery(orm.Query):
         return Pagination(self, page, per_page, total, items)
 
 
-class _QueryProperty:
+class _QueryProperty(object):
     def __init__(self, sa):
         self.sa = sa
 
@@ -897,8 +905,9 @@ class SQLAlchemy:
             # If the database path is not absolute, it's relative to the
             # app instance path, which might need to be created.
             if not detected_in_memory and not os.path.isabs(sa_url.database):
-                os.makedirs(app.instance_path, exist_ok=True)
-                sa_url.database = os.path.join(app.instance_path, sa_url.database)
+                if not os.path.exists(str(app.instance_path)):
+                    os.makedirs(str(app.instance_path))
+                sa_url.database = os.path.join(str(app.instance_path), sa_url.database)
 
     @property
     def engine(self):
